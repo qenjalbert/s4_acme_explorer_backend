@@ -129,8 +129,7 @@ var tripSchema = new Schema({
         validate: [dateValidator,
                     'Start Date must be less than End Date']
     }, pictures: [{
-        data: Buffer,
-        contentType: String
+        type: String
     }], price: {
         type: Number,
         default: 0,

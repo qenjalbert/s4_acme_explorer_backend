@@ -65,6 +65,8 @@ var actorModel = new Schema({
         default: Date.now
     }, customToken: {
         type: String
+    }, avatar: {
+        type: String
     }
 }, {
     strict: false

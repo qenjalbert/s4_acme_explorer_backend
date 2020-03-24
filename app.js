@@ -22,14 +22,10 @@ var https = require('https');
 // MongoDB URI building
 var mongoDBUser = process.env.MONGO_USER || "admin";
 var mongoDBPass = process.env.MONGO_PASSWORD || "mdp";
-var mongoDBCredentials = (mongoDBUser && mongoDBPass) ? mongoDBUser + ":" + mongoDBPass + "@" : "";
-
-var mongoDBHostname = process.env.mongoDBHostname || "localhost";
-var mongoDBPort = process.env.mongoDBPort || "27017";
 var mongoDBName = process.env.mongoDBName || "ACME-Explorer";
 
-var mongoDBURI = "mongodb://" + mongoDBCredentials + mongoDBHostname + ":" + mongoDBPort + "/" + mongoDBName;
- 
+var mongoDBURI = "mongodb+srv://" + mongoDBUser + ":" + mongoDBPass + "@cluster0-cn9bi.mongodb.net/" + mongoDBName + "?retryWrites=true&w=majority";
+
 mongoose.connect(mongoDBURI, {
     reconnectTries: 10,
     reconnectInterval: 500,
