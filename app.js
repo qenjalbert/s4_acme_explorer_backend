@@ -89,11 +89,11 @@ mongoose.connection.on("open", function (err, conn) {
         }
     });
     
-    https.createServer({
+    /*https.createServer({
         key: fs.readFileSync('./server.key'),
         cert: fs.readFileSync('./server.cert')
-    }, app)
-    .listen(port, function () {
+    }, app)*/
+    app.listen(port, function () {
         console.log('ACME-Explorer RESTful API server started on: ' + port);
     });
 });
