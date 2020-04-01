@@ -38,25 +38,25 @@ var cache = new Cacheman('trips');
 exports.list_all_trips = function(req, res) {
     var token = req.headers['authorization'];
     var lang = dict.getLang(req);
-    authController.getUserRoleAndId(token)
+    var query = {};
+    if (token){
+        authController.getUserRoleAndId(token)
         .then((actor) => {
-            var query = {};
             if (actor.role == "Manager") {
                 query = {managerId: actor.id};
-            } else if (actor.role == "Explorer") {
-                query = {published: true};
             }
-            Trips.find(query, function(err, trips) {
-                if(err) {
-                    res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
-                } else {
-                    res.status(200).json(trips);
-                }
-            });
         })
         .catch((err) => {
             return res.status(500).send(err);
         });
+    }
+    Trips.find(query, function(err, trips) {
+        if(err) {
+            res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
+        } else {
+            res.status(200).json(trips);
+        }
+    });
 }
 
 /**
