@@ -195,7 +195,7 @@ exports.read_an_actor = function(req, res) {
 /**
  * @swagger
  * path:
- *  '/actors/email/{actorEmail}':
+ *  '/actors/email/{email}':
  *    get:
  *      tags:
  *        - Actor
@@ -203,7 +203,7 @@ exports.read_an_actor = function(req, res) {
  *        Retrieve details from a specific actor
  *      operationId: getActor
  *      parameters:
- *         - name: actorEmail
+ *         - name: email
  *           in: path
  *           description: email of the actor you want to get details from
  *           required: true
@@ -228,7 +228,7 @@ exports.read_an_actor = function(req, res) {
 exports.read_an_actor_with_email = function(req, res) {
     var email = req.params.email;
     var lang = dict.getLang(req);
-    Actors.findById({email}, { password: 0, customToken: 0 }, function (err, actor) {
+    Actors.find({email}, { password: 0, customToken: 0 }, function (err, actor) {
         if (err) {
             console.error('Error getting data from DB');
             res.status(500).send({ err: dict.get('ErrorGetDB', lang) }); // internal server error

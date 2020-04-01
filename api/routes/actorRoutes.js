@@ -23,7 +23,7 @@ module.exports = function(app) {
     routerv2.route('/actors')
         .get(actorsv2.list_all_actors)
         .post(actorsv2.create_an_actor);
-    routerv2.route('/actors/email/:actorEmail')
+    routerv2.route('/actors/email/:email')
         .get(actorsv2.read_an_actor_with_email)
     routerv2.route('/actors/:actorId')
         .get(actorsv2.read_an_actor)
