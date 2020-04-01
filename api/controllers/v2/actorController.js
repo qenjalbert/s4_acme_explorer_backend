@@ -195,6 +195,64 @@ exports.read_an_actor = function(req, res) {
 /**
  * @swagger
  * path:
+ *  '/actors/email/{actorEmail}':
+ *    get:
+ *      tags:
+ *        - Actor
+ *      description: >-
+ *        Retrieve details from a specific actor
+ *      operationId: getActor
+ *      parameters:
+ *         - name: actorEmail
+ *           in: path
+ *           description: email of the actor you want to get details from
+ *           required: true
+ *           schema:
+ *             type: string
+ *         - $ref: '#/components/parameters/language'
+ *      responses:
+ *        '200':
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                allOf:
+ *                - $ref: '#/components/schemas/actor'
+ *        '404':
+ *           description: Actor not found
+ *           content: {}
+ *        '500':
+ *           description: Internal server error
+ *           content: {}
+ */
+exports.read_an_actor_with_email = function(req, res) {
+    auth.verifyUser(['Administrator', 'Manager', 'Explorer', 'Sponsor', 'Auditor'])(req, res, (error, user) => {
+        var email = req.params.email;
+        var lang = dict.getLang(req);
+        if(email != user.email) {
+            res.status(401).send({ err: dict.get('Unauthorized', lang) })
+            return;
+        }
+        Actors.findById(user._id, { password: 0, customToken: 0 }, function (err, actor) {
+            if (err) {
+                console.error('Error getting data from DB');
+                res.status(500).send({ err: dict.get('ErrorGetDB', lang) }); // internal server error
+            } else {
+                if (actor) {
+                    console.info("Sending actor: " + JSON.stringify(actor, 2, null));
+                    res.send(actor);
+                } else {
+                    console.warn(dict.get('RessourceNotFound', lang, 'actor', email));
+                    res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'actor', email) }); // not found
+                }
+            }
+        });
+    });
+}
+
+/**
+ * @swagger
+ * path:
  *  '/actors/{actorId}':
  *    put:
  *      tags:

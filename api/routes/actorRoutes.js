@@ -11,7 +11,7 @@ module.exports = function(app) {
     routerv1.route('/actors')
         .get(actorsv1.list_all_actors)
         .post(actorsv1.create_an_actor);
-        routerv1.route('/actors/:actorId')
+    routerv1.route('/actors/:actorId')
         .get(actorsv1.read_an_actor)
         .put(actorsv1.edit_an_actor)
         .delete(actorsv1.delete_an_actor)
@@ -23,10 +23,12 @@ module.exports = function(app) {
     routerv2.route('/actors')
         .get(actorsv2.list_all_actors)
         .post(actorsv2.create_an_actor);
+    routerv2.route('/actors/email/:actorEmail')
+        .get(actorsv2.read_an_actor_with_email)
     routerv2.route('/actors/:actorId')
         .get(actorsv2.read_an_actor)
         .put(actorsv2.edit_an_actor)
-        .delete(auth.verifyUser(['Administrator']), actorsv2.delete_an_actor)
+        .delete(auth.verifyUser(['Administrator']), actorsv2.delete_an_actor);
     routerv2.route('/actors/:actorId/ban')
         .patch(auth.verifyUser(['Administrator']), actorsv2.handle_actor_banishment)
 
