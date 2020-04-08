@@ -44,19 +44,28 @@ exports.list_all_trips = function(req, res) {
         .then((actor) => {
             if (actor.role == "Manager") {
                 query = {managerId: actor.id};
+                Trips.find(query, function(err, trips) {
+                    if(err) {
+                        res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
+                    } else {
+                        res.status(200).json(trips);
+                    }
+                });
             }
         })
         .catch((err) => {
             return res.status(500).send(err);
         });
+    } else {
+        Trips.find(query, function(err, trips) {
+            if(err) {
+                res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
+            } else {
+                res.status(200).json(trips);
+            }
+        });
     }
-    Trips.find(query, function(err, trips) {
-        if(err) {
-            res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
-        } else {
-            res.status(200).json(trips);
-        }
-    });
+    
 }
 
 /**
