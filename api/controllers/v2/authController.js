@@ -12,11 +12,9 @@ exports.getUserId = async function (idToken) {
 
     var actorFromFB = await admin.auth().verifyIdToken(idToken);
 
-    var uid = actorFromFB.uid;
-    var auth_time = actorFromFB.auth_time;
-    var exp = actorFromFB.exp;
+    var email = actorFromFB.email;
 
-    var mongoActor = await Actor.findOne({ email: uid });
+    var mongoActor = await Actor.findOne({ email: email });
     if (!mongoActor) { return null; }
 
     else {
@@ -36,16 +34,14 @@ exports.verifyUser = function (requiredRoles) {
         } else {
             idToken = idToken.replace('Bearer ', '');
             admin.auth().verifyIdToken(idToken).then(function (decodedToken) {    
-                var uid = decodedToken.uid;
-                var auth_time = decodedToken.auth_time;
-                var exp = decodedToken.exp;
+                var email = decodedToken.email;
     
-                Actor.findOne({ email: uid }, function (err, actor) {
+                Actor.findOne({ email: email }, function (err, actor) {
                     if (err) { res.send(err); }
     
                     // No actor found with that email as username
                     else if (!actor) {
-                        res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'actor', uid) });
+                        res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'actor', email) });
                     }
     
                     else {    
