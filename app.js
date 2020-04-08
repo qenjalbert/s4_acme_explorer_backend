@@ -14,7 +14,7 @@ Finder = require('./api/models/finderModel'),
 DataWareHouse = require('./api/models/dataWareHouseModel'),
 Cube = require('./api/models/cubeModel'),
 admin = require('firebase-admin'),
-serviceAccount = require("./acme-explorer-6415d-firebase-adminsdk-ea57g-024809d2fe"),
+serviceAccount = require("./acme-explorer-e1ea6-firebase-adminsdk-63nbe-3c5c8a4759"),
 bodyParser = require('body-parser');
 require('dotenv').config();
 var fs = require('fs');
