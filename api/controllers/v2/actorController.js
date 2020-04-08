@@ -228,7 +228,7 @@ exports.read_an_actor = function(req, res) {
 exports.read_an_actor_with_email = function(req, res) {
     var email = req.params.email;
     var lang = dict.getLang(req);
-    Actors.find({email}, { password: 0, customToken: 0 }, function (err, actor) {
+    Actors.findOne({email}, { password: 0, customToken: 0 }, function (err, actor) {
         if (err) {
             console.error('Error getting data from DB');
             res.status(500).send({ err: dict.get('ErrorGetDB', lang) }); // internal server error
