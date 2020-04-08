@@ -220,7 +220,7 @@ exports.search_trips = function(req, res) {
  *              example:
  *                title: titleUpdate
  *                description: descTrip
- *                requirementes: ["testReq"]
+ *                requirements: ["testReq"]
  *                start: 2020-02-14
  *                end: 2020-02-14
  *                stages:
