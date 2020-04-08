@@ -45,7 +45,8 @@ dict = new LangDictionnary();
  */
 
 exports.list_all_sponsorships = function(req, res) {
-    var filters = {}    
+    var filters = {};
+    if(req.query.sponsorId) filters.sponsorId = req.query.sponsorId;
     if(req.query.tripId) filters.trip_id = req.query.tripId;
     if(req.query.payed != null) filters.payed = req.query.payed; 
     var lang = dict.getLang(req);
@@ -55,7 +56,7 @@ exports.list_all_sponsorships = function(req, res) {
         } else {
             res.json(sponsorships);
         }
-    })
+    });
 }
 
 /**
