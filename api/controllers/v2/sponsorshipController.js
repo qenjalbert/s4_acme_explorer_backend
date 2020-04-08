@@ -16,6 +16,12 @@ dict = new LangDictionnary();
  *        Retrieve all the sponsorships
  *      operationId: getSponsorships
  *      parameters:
+ *        - name: sponsorId
+ *          in: query
+ *          description: Id of the sponsor that you wanna retrieve the sponsorships from
+ *          required: false
+ *          schema:
+ *            type: string
  *        - name: tripId
  *          in: query
  *          description: Id of the trip that you wanna retrieve the sponsorships from
