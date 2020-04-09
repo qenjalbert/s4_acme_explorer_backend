@@ -171,10 +171,6 @@ exports.create_an_actor = function(req, res) {
 exports.read_an_actor = function(req, res) {
     var id = req.params.actorId;
     var lang = dict.getLang(req);
-    if(id != user._id) {
-        res.status(401).send({ err: dict.get('Unauthorized', lang) })
-        return;
-    }
     Actors.findById(id, { password: 0, customToken: 0 }, function (err, actor) {
         if (err) {
             console.error('Error getting data from DB');
