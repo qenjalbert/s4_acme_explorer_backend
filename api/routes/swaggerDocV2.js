@@ -62,6 +62,7 @@ const options = {
         "./api/models/finderModel.js",
         "./api/models/globalVarsModel.js",
         "./api/models/dataWareHouseModel.js",
+        "./api/models/auditModel.js",
         "./api/controllers/v2/globalVarsController.js",
         "./api/controllers/v2/actorController.js",
         "./api/controllers/v2/sponsorshipController.js",
@@ -69,7 +70,8 @@ const options = {
         "./api/controllers/v2/applicationController.js",
         "./api/controllers/v2/finderController.js",
         "./api/controllers/v2/dataWareHouseController.js",
-        "./api/controllers/storageController.js"
+        "./api/controllers/storageController.js",
+        "./api/controllers/auditController.js"
     ],        
   };
 
