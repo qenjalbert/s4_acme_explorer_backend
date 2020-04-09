@@ -47,7 +47,7 @@ var dict = new LangDictionnary();
  */
 exports.list_all_audits = function(req, res) {
     var filters = {};
-    if(req.query.auditorId) filters.idAuditor = req.query.sponsorId;
+    if(req.query.auditorId) filters.idAuditor = req.query.auditorId;
     if(req.query.tripId) filters.idTrip = req.query.tripId; 
     var lang = dict.getLang(req);
     Audits.find(filters, function(err, audits) {
