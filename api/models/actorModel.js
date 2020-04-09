@@ -56,7 +56,7 @@ var actorModel = new Schema({
     }, role: {
         type: String,
         required: 'Enter the role(s) of the actor please',
-        enum: ['Administrator', 'Manager', 'Explorer', 'Sponsor']
+        enum: ['Administrator', 'Manager', 'Explorer', 'Sponsor', 'Auditor']
     }, banned: {
         type: Boolean,
         default: false

@@ -55,10 +55,11 @@ routesSponsorships = require('./api/routes/sponsorshipRoutes'),
 routesActors = require('./api/routes/actorRoutes'),
 routesApplications = require('./api/routes/applicationRoutes'),
 routesTrips = require('./api/routes/tripRoutes'),
-routesFinders = require('./api/routes/finderRoutes')
-routesGlobalVars = require('./api/routes/globalVarsRoutes');
+routesFinders = require('./api/routes/finderRoutes'),
+routesGlobalVars = require('./api/routes/globalVarsRoutes'),
 routesDataWareHouse = require('./api/routes/dataWareHouseRoutes'),
 routesStorage = require('./api/routes/storageRoutes'),
+routesAudits = require('./api/routes/auditRoutes');
  
 routesActors(app);
 routesSponsorships(app);
@@ -68,6 +69,7 @@ routesFinders(app);
 routesGlobalVars(app);
 routesDataWareHouse(app);
 routesStorage(app);
+routesAudits(app);
  
 console.log("Connecting DB to: " + mongoDBURI);
 mongoose.connection.on("open", function (err, conn) {
