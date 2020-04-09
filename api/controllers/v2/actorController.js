@@ -111,9 +111,7 @@ exports.list_all_actors = function(req, res) {
  */
 exports.create_an_actor = function(req, res) {
     var new_actor = new Actors(req.body);
-    console.log(new_actor);
     new_actor.email = new_actor.email.toLowerCase();
-    console.log(new_actor);
     createOperation = () => {
         var lang = dict.getLang(req);
         new_actor.save(function(err, actor) {
