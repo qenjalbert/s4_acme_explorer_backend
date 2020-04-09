@@ -10,7 +10,7 @@ Trips = require('./tripModel');
  * @swagger
  *  components:
  *    schemas:
- *      Applications:
+ *      Audits:
  *        type: object
  *        required:
  *          - idExplorer

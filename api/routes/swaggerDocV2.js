@@ -71,7 +71,7 @@ const options = {
         "./api/controllers/v2/finderController.js",
         "./api/controllers/v2/dataWareHouseController.js",
         "./api/controllers/storageController.js",
-        "./api/controllers/auditController.js"
+        "./api/controllers/v2/auditController.js"
     ],        
   };
 
