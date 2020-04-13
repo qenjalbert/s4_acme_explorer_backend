@@ -80,6 +80,47 @@ exports.list_all_applications = function(req, res) {
 /**
  * @swagger
  * path:
+ *  /applications/trip/{tripId}:
+ *    get:
+ *      summary: Get all applications for a trip
+ *      tags: [Applications]
+ *      parameters:
+ *        - name: tripId
+ *          in: query
+ *          description: Id of the trip that you wanna retrieve the sponsorships from
+ *          required: false
+ *          schema:
+ *            type: string
+ *        - $ref: '#/components/parameters/language'
+ *      responses:
+ *        "200":
+ *          description: Return all applications
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                $ref: '#/components/schemas/Applications'
+ *        "500":
+ *          description: Internal error
+ */
+exports.list_all_applications_by_trip = function(req, res) {
+    var filters = {};
+    var lang = dict.getLang(req);
+    if(req.params.tripId) filters.idTrip = req.params.tripId;
+
+    Applications.find(filters, function(err, applications) {
+        if (err) {
+            res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
+        }
+        else {
+            res.status(200).json(applications);
+        }
+    });
+}
+
+/**
+ * @swagger
+ * path:
  *  /applications:
  *    post:
  *      summary: Create an Application

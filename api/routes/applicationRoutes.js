@@ -22,6 +22,8 @@ module.exports = function(app) {
     routerV2.route('/applications')
         .get(authController.verifyUser(["Explorer", "Manager"]), applicationsV2.list_all_applications)
         .post(authController.verifyUser(["Explorer"]), applicationsV2.create_an_application);
+    routerV2.route('/applications/trip/:tripId')
+        .get(applicationsV2.list_all_applications_by_trip);
     routerV2.route('/applications/:applicationId')
         .get(authController.verifyUser(["Explorer", "Manager"]), applicationsV2.read_an_application)
         .put(authController.verifyUser(["Explorer"]), applicationsV2.edit_an_application)
