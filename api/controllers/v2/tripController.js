@@ -142,7 +142,6 @@ exports.search_trips = function(req, res) {
     if (req.query.priceMin && req.query.priceMax){
         query.price = { $gte: req.query.priceMin, $lt: req.query.priceMax };
     }
-    query.published = true;
     query.cancelled = false;
 
     keyCache = JSON.stringify(query);
@@ -376,7 +375,7 @@ exports.edit_a_trip = function(req, res) {
                 verifyManagerTripOwner(req.headers['authorization'], trip.managerId)
                     .then((isSame) => {
                         if (isSame) {
-                            if(!trip.published || trip.cancelled) {
+                            if(trip.cancelled) {
                                 Trips.updateOne({_id: req.params.tripId}, req.body, {new:true, runValidators: true}, function(err, trip) {
                                     if (err){
                                         if(err.name=='ValidationError') {
@@ -448,7 +447,7 @@ exports.delete_a_trip = function(req, res) {
                 verifyManagerTripOwner(req.headers['authorization'], trip.managerId)
                 .then((isSame) => {
                     if (isSame) {
-                        if(!trip.published){
+                        if(!trip.published){ //TODO changer avec 1 semaine avant date début
                             Trips.deleteOne({_id: req.params.tripId}, function(err) {
                                 if(err) {
                                     res.status(500).send({ err: dict.get('ErrorDeleteDB', lang) });
@@ -630,7 +629,7 @@ exports.cancel_a_trip = function(req, res) {
                 if (trip) {
                     verifyManagerTripOwner(req.headers['authorization'], trip.managerId)
                         .then((isSame) => {
-                            if (isSame) {
+                            if (isSame) {// TODO cancel seulement si date début < 1 semaine
                                 if (trip.cancelled){
                                     res.status(422).send({ err: dict.get('AlreadyCancelled', lang) });
                                 } else if (new Date(trip.start) <= Date()){

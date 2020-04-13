@@ -156,7 +156,7 @@ exports.create_an_application = function(req, res) {
         else if (!trip) {
             res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'trip', req.body.idTrip) });
         }
-        else if (!trip.published || trip.cancelled || trip.start < Date.now) {
+        else if (!trip.cancelled || trip.start < Date.now) {
             res.status(422).send({ err: dict.get('ErrorSchema', lang) });
         }
         else {
