@@ -34,8 +34,8 @@ module.exports = function(app) {
 	 * 
 	*/
 	routerv2.route('/dataWareHouse')
-		.get(auth.verifyUser(['Administrator']), dataWareHousev2.list_all_indicators)
-		.post(auth.verifyUser(['Administrator']), dataWareHousev2.rebuildPeriod);
+		.get(dataWareHousev2.list_all_indicators)
+		.post(dataWareHousev2.rebuildPeriod);
 
 	/**
 	 * Get a list of last computed indicator
@@ -46,7 +46,7 @@ module.exports = function(app) {
 	 * 
 	*/
 	routerv2.route('/dataWareHouse/latest')
-		.get(auth.verifyUser(['Administrator']), dataWareHousev2.last_indicator);
+		.get(dataWareHousev2.last_indicator);
 	
 		/**
 		 * Get a list of last computed cube
@@ -57,7 +57,7 @@ module.exports = function(app) {
 		 * 
 		*/
 	routerv2.route('/dataWareHouse/cube')
-		.get(auth.verifyUser(['Administrator']), dataWareHousev2.read_cube_data)
+		.get(dataWareHousev2.read_cube_data)
 	
 		/**
 		 * Generated a new cube
@@ -67,7 +67,7 @@ module.exports = function(app) {
 		 * @url /dataWareHouse/cube
 		 * 
 		*/
-    	.post(auth.verifyUser(['Administrator']), dataWareHousev2.compute_cube);
+    	.post(dataWareHousev2.compute_cube);
     
     app.use("/v2/", routerv2);
 };
