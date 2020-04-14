@@ -58,8 +58,8 @@ exports.verifyUser = function (requiredRoles) {
                     }
                 });
             }).catch(function (err) {
-                // Handle error
-                res.status(403).send({ err: dict.get('Forbidden', lang) });
+                // Handle error,token non valide
+                res.status(400).send(err);
             });
         }
     }

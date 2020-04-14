@@ -54,7 +54,7 @@ exports.list_all_trips = function(req, res) {
             }
         })
         .catch((err) => {
-            return res.status(500).send(err);
+            return res.status(400).send(err);
         });
     } else {
         Trips.find(query, function(err, trips) {
@@ -271,7 +271,7 @@ exports.create_a_trip = function(req, res) {
         });
     })
     .catch((err) => {
-        res.status(500).send(err);
+        res.status(400).send(err);
     })
 }
 

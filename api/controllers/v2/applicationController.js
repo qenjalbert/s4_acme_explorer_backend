@@ -72,7 +72,7 @@ exports.list_all_applications = function(req, res) {
             }
         })
         .catch((err) => {
-            res.status(500).send(err);
+            res.status(400).send(err);
         })
     
 }
@@ -181,7 +181,7 @@ exports.create_an_application = function(req, res) {
                     });
                 })
                 .catch((err) => {
-                    res.status(500).send(err);
+                    res.status(400).send(err);
                 })
         }
     });
@@ -261,7 +261,7 @@ exports.read_an_application = function(req, res) {
             }
         })
         .catch((err) => {
-            res.status(500).send(err);
+            res.status(400).send(err);
         });
 }
 
@@ -481,7 +481,7 @@ exports.edit_status_of_an_application = function(req, res) {
             });
         })
         .catch((err) => {
-            res.status(500).send(err);
+            res.status(400).send(err);
         })
     
 }
