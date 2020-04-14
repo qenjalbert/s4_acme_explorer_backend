@@ -251,9 +251,6 @@ exports.read_an_application = function(req, res) {
                     else if (!application) {
                         res.status(404).json({ err: dict.get('RessourceNotFound', lang, 'application', req.params.applicationId) });
                     }
-                    else if (application.explorerId  != actor.id){
-                        res.status(401).send({ err: dict.get('Unauthorized', lang) });
-                    }
                     else {
                         res.json(application);
                     }

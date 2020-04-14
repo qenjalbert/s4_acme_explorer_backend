@@ -20,16 +20,16 @@ module.exports = function(app) {
         .patch(applicationsV1.edit_status_of_an_application)
     
     routerV2.route('/applications')
-        .get(authController.verifyUser(["Explorer", "Manager"]), applicationsV2.list_all_applications)
-        .post(authController.verifyUser(["Explorer"]), applicationsV2.create_an_application);
+        .get(applicationsV2.list_all_applications)
+        .post(applicationsV2.create_an_application);
     routerV2.route('/applications/trip/:tripId')
         .get(applicationsV2.list_all_applications_by_trip);
     routerV2.route('/applications/:applicationId')
-        .get(authController.verifyUser(["Explorer", "Manager"]), applicationsV2.read_an_application)
-        .put(authController.verifyUser(["Explorer"]), applicationsV2.edit_an_application)
+        .get(applicationsV2.read_an_application)
+        .put(applicationsV2.edit_an_application)
         .delete(authController.verifyUser(["Administrator"]), applicationsV2.delete_an_application);
     routerV2.route('/applications/:applicationId/status')
-        .patch(authController.verifyUser(["Explorer", "Manager"]), applicationsV2.edit_status_of_an_application)
+        .patch(applicationsV2.edit_status_of_an_application)
     
     app.use("/v1/", routerV1);
     app.use("/v2/", routerV2);
