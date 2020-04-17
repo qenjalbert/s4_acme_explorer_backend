@@ -39,6 +39,7 @@ exports.list_all_trips = function(req, res) {
     var token = req.headers['authorization'];
     var lang = dict.getLang(req);
     var query = {};
+
     if (token){
         authController.getUserRoleAndId(token)
         .then((actor) => {
@@ -48,7 +49,11 @@ exports.list_all_trips = function(req, res) {
                     if(err) {
                         res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                     } else {
-                        res.status(200).json(trips);
+                        if (req.params.startFrom && req.params.pageSize) {
+                            res.status(200).json(trips.slice(req.params.startFrom, req.params.startFrom + req.params.pageSize));
+                        } else {
+                            res.status(200).json(trips);
+                        }
                     }
                 });
             }
@@ -61,7 +66,11 @@ exports.list_all_trips = function(req, res) {
             if(err) {
                 res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
             } else {
-                res.status(200).json(trips);
+                if (req.params.startFrom && req.params.pageSize) {
+                    res.status(200).json(trips.slice(req.params.startFrom, req.params.startFrom + req.params.pageSize));
+                } else {
+                    res.status(200).json(trips);
+                }
             }
         });
     }
