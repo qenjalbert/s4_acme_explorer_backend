@@ -233,9 +233,6 @@ exports.read_an_application = function(req, res) {
                             if (err) {
                                 res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                             }
-                            else if (actor.id != trip.managerId){
-                                res.status(401).send({ err: dict.get('Unauthorized', lang) });
-                            }
                             else {
                                 res.json(application);
                             }
