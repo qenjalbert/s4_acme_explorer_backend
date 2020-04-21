@@ -383,7 +383,7 @@ exports.edit_a_trip = function(req, res) {
                 verifyManagerTripOwner(req.headers['authorization'], trip.managerId)
                     .then((isSame) => {
                         if (isSame) {
-                            if(trip.cancelled) {
+                            if(!trip.cancelled) {
                                 Trips.updateOne({_id: req.params.tripId}, req.body, {new:true, runValidators: true}, function(err, trip) {
                                     if (err){
                                         if(err.name=='ValidationError') {

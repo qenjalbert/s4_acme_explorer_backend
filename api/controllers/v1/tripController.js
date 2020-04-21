@@ -307,7 +307,7 @@ exports.edit_a_trip = function(req, res) {
             res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
         } else {
             if (trip) {
-                if(!trip.cancelled){
+                if(!trip.published || trip.cancelled){
                     Trips.updateOne({_id: req.params.tripId}, req.body, {new:true, runValidators: true}, function(err, trip) {
                         if (err){
                             if(err.name=='ValidationError') {
