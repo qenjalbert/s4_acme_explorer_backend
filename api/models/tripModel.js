@@ -125,9 +125,7 @@ var tripSchema = new Schema({
         required: 'Enter the start (date) of the trip please'
     }, end: {
         type: Date,
-        required: 'Enter the end (date) of the trip please',
-        validate: [dateValidator,
-                    'Start Date must be less than End Date']
+        required: 'Enter the end (date) of the trip please'
     }, pictures: [{
         type: String
     }], price: {
@@ -156,10 +154,6 @@ var tripSchema = new Schema({
         }
     }
 }, {strict: true, toJSON: {virtuals: true}});
-
-function dateValidator(value) {
-    return this.start <= value;
-}
 
 tripSchema.pre('save', function(callback) {
     var new_trip = this;
