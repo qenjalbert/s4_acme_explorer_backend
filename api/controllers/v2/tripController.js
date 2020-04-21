@@ -48,7 +48,11 @@ exports.list_all_trips = function(req, res) {
                     if(err) {
                         res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                     } else {
-                        res.status(200).json(trips);
+                        if (req.query.startFrom != null && req.query.pageSize != null) {
+                            res.status(200).json(trips.slice(req.query.startFrom, req.query.startFrom + req.query.pageSize));
+                        } else {
+                            res.status(200).json(trips);
+                        }
                     }
                 });
             }
@@ -61,7 +65,11 @@ exports.list_all_trips = function(req, res) {
             if(err) {
                 res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
             } else {
-                res.status(200).json(trips);
+                if (req.query.startFrom != null && req.query.pageSize != null) {
+                    res.status(200).json(trips.slice(req.query.startFrom, req.query.startFrom + req.query.pageSize));
+                } else {
+                    res.status(200).json(trips);
+                }
             }
         });
     }
