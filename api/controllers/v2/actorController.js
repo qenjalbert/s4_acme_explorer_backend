@@ -380,7 +380,7 @@ exports.handle_actor_banishment = function(req, res) {
     var banned = req.body ? req.body.banned : undefined;
     var id = req.params.actorId;
     var lang = dict.getLang(req);
-    if (!banned || typeof(banned) != "boolean") {
+    if (banned == undefined || typeof(banned) != "boolean") {
         console.warn("New PATCH request to /actors/id/ban without correct attribute banned, sending 422...");
         res.status(422).send({ err: dict.get('ErrorSchema', lang) });
     } else {
