@@ -169,7 +169,11 @@ exports.search_trips = function(req, res) {
                                     res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                                 } else {
                                     cache.set(keyCache, trip, globalVars.cacheTimeOutFinderResults + 'h');
-                                    res.status(200).json(trip);
+                                    if (req.query.startFrom != null && req.query.pageSize != null) {
+                                        res.status(200).json(trips.slice(req.query.startFrom, req.query.startFrom + req.query.pageSize));
+                                    } else {
+                                        res.status(200).json(trips);
+                                    }
                                 }
                             });
                     }
