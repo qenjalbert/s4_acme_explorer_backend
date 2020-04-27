@@ -39,6 +39,9 @@ exports.list_all_trips = function(req, res) {
     var token = req.headers['authorization'];
     var lang = dict.getLang(req);
     var query = {};
+    if(req.query.keyword){
+        query.$text = {$search: req.query.keyword};
+    }
     if (token){
         authController.getUserRoleAndId(token)
         .then((actor) => {
@@ -169,11 +172,7 @@ exports.search_trips = function(req, res) {
                                     res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                                 } else {
                                     cache.set(keyCache, trip, globalVars.cacheTimeOutFinderResults + 'h');
-                                    if (req.query.startFrom != null && req.query.pageSize != null) {
-                                        res.status(200).json(trip.slice(req.query.startFrom, req.query.startFrom + req.query.pageSize));
-                                    } else {
-                                        res.status(200).json(trip);
-                                    }
+                                    res.status(200).json(trip);
                                 }
                             });
                     }
