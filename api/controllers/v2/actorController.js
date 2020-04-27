@@ -284,11 +284,11 @@ exports.read_an_actor_with_email = function(req, res) {
  */
 exports.edit_an_actor = function(req, res) {
     console.log(req.headers);
-    auth.verifyUser(['Administrator', 'Manager', 'Explorer', 'Sponsor'])(req, res, (error, user) => {
+    auth.verifyUser(['Administrator', 'Manager', 'Explorer', 'Sponsor', 'Auditor'])(req, res, (error, user) => {
         var updatedActor = req.body;
         var id = req.params.actorId;
         var lang = dict.getLang(req);
-        if(id != user._id) {
+        if(id != user._id && user.role != 'Administrator') {
             res.status(401).send({ err: dict.get('Unauthorized', lang) })
             return;
         }
