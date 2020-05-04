@@ -181,7 +181,7 @@ exports.read_a_sponsorship = function(req, res) {
                 res.status(500).send({ err: dict.get('ErrorGetDB', lang) }); // internal server error
             } else {
                 if (sponsorship) {
-                    if( new String(sponsorship.sponsor_id).valueOf() != new String(actor._id).valueOf() ) {
+                    if (new String(sponsorship.sponsor_id).valueOf() != new String(actor._id).valueOf()) {
                         res.status(401).send({ err: dict.get('Unauthorized', lang) })
                         return;
                     }
@@ -257,7 +257,7 @@ exports.edit_a_sponsorship = function(req, res) {
                     res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                 } else {
                     if (sponsorship) {
-                        if(sponsorship.sponsor_id != actor._id) {
+                        if (new String(sponsorship.sponsor_id).valueOf() != new String(actor._id).valueOf()) {
                             res.status(401).send({ err: dict.get('Unauthorized', lang) })
                             return;
                         }
