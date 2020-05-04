@@ -118,10 +118,11 @@ exports.list_all_sponsorships = function(req, res) {
 exports.create_a_sponsorship = function(req, res) {
     auth.verifyUser(['Sponsor'])(req, res, (error, actor) => {
         var new_sponsorship = new Sponsorships(req.body);
-        new_sponsorship.sponsorId = actor._id;
+        new_sponsorship.sponsor_id = actor._id;
         var lang = dict.getLang(req);
         new_sponsorship.save(function(err, sponsorship) {
             if(err) {
+                console.log(err);
                 if(err.name=='ValidationError') {
                     res.status(422).send({ err: dict.get('ErrorSchema', lang) });
                 }
@@ -180,7 +181,7 @@ exports.read_a_sponsorship = function(req, res) {
                 res.status(500).send({ err: dict.get('ErrorGetDB', lang) }); // internal server error
             } else {
                 if (sponsorship) {
-                    if(sponsorship.sponsorId != actor._id) {
+                    if(sponsorship.sponsor_id != actor._id) {
                         res.status(401).send({ err: dict.get('Unauthorized', lang) })
                         return;
                     }
@@ -256,7 +257,7 @@ exports.edit_a_sponsorship = function(req, res) {
                     res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
                 } else {
                     if (sponsorship) {
-                        if(sponsorship.sponsorId != actor._id) {
+                        if(sponsorship.sponsor_id != actor._id) {
                             res.status(401).send({ err: dict.get('Unauthorized', lang) })
                             return;
                         }
@@ -351,7 +352,7 @@ exports.handle_sponsorship_payement = function(req, res) {
                     }
                 } else {
                     if (sponsorship) {
-                        if(sponsorship.sponsorId != actor._id) {
+                        if(sponsorship.sponsor_id != actor._id) {
                             res.status(401).send({ err: dict.get('Unauthorized', lang) })
                             return;
                         }
