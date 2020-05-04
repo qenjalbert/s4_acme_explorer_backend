@@ -52,7 +52,7 @@ dict = new LangDictionnary();
 
 exports.list_all_sponsorships = function(req, res) {
     var filters = {};
-    if(req.query.sponsorId) filters.sponsor_id = req.query.sponsorId;
+    if(req.query.sponsor_id) filters.sponsor_id = req.query.sponsorId;
     if(req.query.tripId) filters.trip_id = req.query.tripId;
     if(req.query.payed != null && req.query.payed != undefined) filters.payed = req.query.payed; 
     var lang = dict.getLang(req);
@@ -181,7 +181,7 @@ exports.read_a_sponsorship = function(req, res) {
                 res.status(500).send({ err: dict.get('ErrorGetDB', lang) }); // internal server error
             } else {
                 if (sponsorship) {
-                    if(sponsorship.sponsor_id != actor._id) {
+                    if( new String(sponsorship.sponsor_id).valueOf() != new String(actor._id).valueOf() ) {
                         res.status(401).send({ err: dict.get('Unauthorized', lang) })
                         return;
                     }
