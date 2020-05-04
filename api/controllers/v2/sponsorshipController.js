@@ -54,7 +54,7 @@ exports.list_all_sponsorships = function(req, res) {
     var filters = {};
     if(req.query.sponsorId) filters.sponsor_id = req.query.sponsorId;
     if(req.query.tripId) filters.trip_id = req.query.tripId;
-    if(req.query.payed != null) filters.payed = req.query.payed; 
+    if(req.query.payed != null && req.query.payed != undefined) filters.payed = req.query.payed; 
     var lang = dict.getLang(req);
     Sponsorships.find(filters, function(err, sponsorships) {
         if(err) {
