@@ -23,7 +23,7 @@ var Schema = mongoose.Schema;
 var globalVarsModel = new Schema({
     flatRateSponsorships: {
         type: Number,
-        default: 0,
+        default: 150,
         min: 0
     }, cacheTimeOutFinderResults: {
         type: Number,
