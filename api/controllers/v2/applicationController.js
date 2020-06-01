@@ -307,33 +307,22 @@ exports.edit_an_application = function(req, res) {
             res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'application', req.params.applicationId) });
         }
         else {
-            verifyExplorerApplicationOwner(req.headers['authorization'], application.idExplorer)
-                .then((isSame) => {
-                    if (isSame) {
-                        Applications.findOneAndUpdate({_id: req.params.applicationId}, req.body, {new:true, runValidators: true}, function(err, application) {
-                            if (err) {
-                                if (err.name=='ValidationError') {
-                                    res.status(422).send({ err: dict.get('ErrorSchema', lang) });
-                                }
-                                else{
-                                res.status(500).send({ err: dict.get('ErrorUpdateDB', lang) });
-                                }
-                            } 
-                            else if (!application) {
-                                res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'application', req.params.applicationId) });
-                            } 
-                            else {
-                                res.status(200).json(application);
-                            }
-                        })
+            Applications.findOneAndUpdate({_id: req.params.applicationId}, req.body, {new:true, runValidators: true}, function(err, application) {
+                if (err) {
+                    if (err.name=='ValidationError') {
+                        res.status(422).send({ err: dict.get('ErrorSchema', lang) });
                     }
-                    else {
-                        res.status(401).send({ err: dict.get('Unauthorized', lang) });
+                    else{
+                    res.status(500).send({ err: dict.get('ErrorUpdateDB', lang) });
                     }
-                })
-                .catch((error) => {
-                    res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
-                });
+                } 
+                else if (!application) {
+                    res.status(404).send({ err: dict.get('RessourceNotFound', lang, 'application', req.params.applicationId) });
+                } 
+                else {
+                    res.status(200).json(application);
+                }
+            })
         }
     });
 }
