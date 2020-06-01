@@ -297,8 +297,6 @@ exports.read_an_application = function(req, res) {
  */
 exports.edit_an_application = function(req, res) {
     var lang = dict.getLang(req);
-    delete req.body.status;
-    delete req.body.reasonRejected;
     Applications.findById({_id: req.params.applicationId}, function(err, application) {
         if (err) {
             res.status(500).send({ err: dict.get('ErrorGetDB', lang) });
